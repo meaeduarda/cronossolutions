@@ -1,0 +1,310 @@
+/* ===== RESPONSIVE CSS ===== */
+
+/* Large Devices (Desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+}
+
+/* Medium Devices (Tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .hero-section {
+        padding: 120px 0 80px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .navbar-nav {
+        padding: 20px 0;
+    }
+    
+    .navbar-nav .nav-link {
+        margin: 5px 0;
+    }
+    
+    .service-card,
+    .why-card {
+        margin-bottom: 30px;
+    }
+}
+
+/* Small Devices (Landscape Phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    
+    .footer-brand {
+        font-size: 1.5rem;
+    }
+    
+    /* Adjust padding for mobile */
+    .py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    
+    /* Center align text on mobile */
+    .text-md-start {
+        text-align: center !important;
+    }
+    
+    /* Stack columns on mobile */
+    .row {
+        flex-direction: column;
+    }
+    
+    /* Adjust margins */
+    .me-3, .me-2, .ms-auto {
+        margin: 0 !important;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Extra Small Devices (Portrait Phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+    
+    /* Adjust container padding */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    /* Reduce card padding */
+    .service-card,
+    .testimonial-card,
+    .why-card {
+        padding: 1.5rem;
+    }
+    
+    /* Adjust font sizes */
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.6rem; }
+    h3 { font-size: 1.4rem; }
+    h4 { font-size: 1.2rem; }
+    h5 { font-size: 1.1rem; }
+    
+    /* Hide some elements on very small screens */
+    .d-none-xs {
+        display: none !important;
+    }
+    
+    /* Make images full width */
+    .img-fluid {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dark-color: #f8f9fa;
+        --light-color: #333333;
+        --white: #222222;
+        --gray: #aaaaaa;
+    }
+    
+    body {
+        background-color: #121212;
+        color: var(--dark-color);
+    }
+    
+    .service-card,
+    .why-card,
+    .testimonial-card {
+        background-color: #1e1e1e;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #0000ff;
+        --secondary-color: #0000cc;
+        --accent-color: #ff0000;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .hover-lift:hover,
+    .hover-grow:hover,
+    .hover-rotate:hover {
+        transform: none;
+    }
+    
+    .service-link:hover {
+        transform: none;
+    }
+    
+    /* Increase touch target sizes */
+    .btn,
+    .nav-link,
+    .service-link {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Orientation Specific */
+@media (orientation: landscape) and (max-height: 500px) {
+    .hero-section {
+        padding: 100px 0 60px;
+        min-height: auto;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+}
+
+/* 4K and Large Screens */
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+    
+    p, .service-description, .trust-text {
+        font-size: 1.2rem;
+    }
+}
+
+/* Retina Display */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Use higher resolution images */
+    .hero-image img,
+    .portfolio-item img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Mobile Menu Animation */
+.navbar-collapse {
+    transition: all 0.3s ease;
+}
+
+.navbar-collapse.collapsing {
+    height: auto;
+    transition: height 0.3s ease;
+}
+
+/* Swiper Responsive */
+@media (max-width: 768px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none;
+    }
+}
+
+/* Form Elements on Mobile */
+@media (max-width: 767px) {
+    .form-control,
+    .form-select {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+        font-size: 16px;
+    }
+}
+
+/* Footer Stack on Mobile */
+@media (max-width: 767px) {
+    .footer .col-lg-4 {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .contact-info li {
+        justify-content: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* Animation Disable on Mobile */
+@media (max-width: 768px) {
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
