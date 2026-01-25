@@ -36,9 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
         on: {
             init: function() {
                 updateSlideCounter(this);
+                // Definir o background inicial baseado no slide ativo
+                updateHeroBackground(this);
             },
             slideChange: function() {
                 updateSlideCounter(this);
+                // Atualizar o background quando o slide mudar
+                updateHeroBackground(this);
             }
         }
     });
@@ -49,6 +53,27 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentSlide) {
             currentSlide.textContent = String(swiper.realIndex + 1).padStart(2, '0');
         }
+    }
+
+    // Função para atualizar o background do hero baseado no slide ativo
+    function updateHeroBackground(swiper) {
+        const heroSection = document.querySelector('.hero-section');
+        if (!heroSection) return;
+        
+        // Pegar o slide atual (índice real, considerando o loop)
+        const currentSlideIndex = swiper.realIndex;
+        
+        // Definir as imagens de background para cada slide
+        const backgroundImages = [
+            'linear-gradient(rgba(10, 25, 47, 0.7), rgba(15, 35, 65, 0.75)), url("assets/image/hero1.png")',
+            'linear-gradient(rgba(10, 25, 47, 0.7), rgba(15, 35, 65, 0.75)), url("assets/image/hero2.png")'
+        ];
+        
+        // Aplicar a imagem de background correspondente
+        heroSection.style.backgroundImage = backgroundImages[currentSlideIndex];
+        
+        // Adicionar efeito de transição suave
+        heroSection.style.transition = 'background-image 0.8s ease-in-out';
     }
 
     // ===== INITIALIZE TESTIMONIALS SLIDER =====
@@ -740,7 +765,7 @@ document.addEventListener('DOMContentLoaded', function() {
             left: 0;
             width: 0%;
             height: 4px;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            background: linear-gradient(90deg, var(--primary-color), #29A68F, #30229D);
             z-index: 1001;
             transition: width 0.1s ease;
         }
@@ -845,5 +870,5 @@ if ('performance' in window) {
         const timing = performance.timing;
         const loadTime = timing.loadEventEnd - timing.navigationStart;
         console.log(`Page fully loaded in ${loadTime}ms`);
-    });
+    })
 }

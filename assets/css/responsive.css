@@ -308,3 +308,39 @@
         transform: none !important;
     }
 }
+
+/* Pricing Section Responsive */
+@media (max-width: 1199.98px) {
+    .pricing-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .pricing-card {
+        margin-bottom: 30px;
+    }
+    
+    .pricing-card-premium {
+        order: -1;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .pricing-subtitle br {
+        display: none;
+    }
+    
+    .pricing-header-badge {
+        font-size: 0.8rem;
+        padding: 6px 20px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .pricing-section .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}

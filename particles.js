@@ -78,44 +78,53 @@ class ParticleSystem {
     }
     
     calculateParticleCount() {
-        // Adjust particle count based on screen size
+        // REDUZIDO SIGNIFICATIVAMENTE para compensar o tamanho maior
+        // Menos partículas, mas maiores
         const width = this.canvas?.width || window.innerWidth;
         
-        if (width < 768) return 30;    // Mobile
-        if (width < 1024) return 50;   // Tablet
-        return 70;                     // Desktop
+        if (width < 768) return 15;    // Mobile: reduzido de 30 para 15
+        if (width < 1024) return 25;   // Tablet: reduzido de 50 para 25
+        return 35;                     // Desktop: reduzido de 70 para 35
     }
     
     createParticle() {
         const width = this.canvas?.width || window.innerWidth;
         const height = this.canvas?.height || window.innerHeight;
         
-        // Particle configuration
+        // Tamanhos maiores como na imagem - base mais espalhada
+        const baseSize = Math.random() > 0.7 ? 8 : 6; // 30% grandes (8px), 70% médias (6px)
+        const variation = Math.random() * 3; // Variação de 0-3px
+        const radius = baseSize + variation; // 6-11px para médias, 8-11px para grandes
+        
+        // Particle configuration com tamanhos maiores
         return {
             x: Math.random() * width,
             y: Math.random() * height,
-            radius: Math.random() * 2.5 + 0.5, // 0.5 to 3 pixels
+            radius: radius, // AUMENTADO: 6-11 pixels (era 0.5-3)
             speed: {
-                x: (Math.random() - 0.5) * 0.2, // Horizontal drift
-                y: Math.random() * 0.3 + 0.1,   // Vertical speed
+                x: (Math.random() - 0.5) * 0.15, // Horizontal drift reduzido
+                y: Math.random() * 0.2 + 0.1,    // Vertical speed reduzido
             },
-            opacity: Math.random() * 0.4 + 0.2, // 0.2 to 0.6
-            alpha: Math.random() * 0.5 + 0.5,   // Base opacity
-            pulseSpeed: Math.random() * 0.02 + 0.01, // Pulsing speed
+            opacity: Math.random() * 0.6 + 0.4,  // AUMENTADO: mais opacas
+            alpha: Math.random() * 0.6 + 0.4,    // Aumentado: 0.4-1.0
+            pulseSpeed: Math.random() * 0.015 + 0.01, // Pulsing mais lento
             pulseDirection: Math.random() > 0.5 ? 1 : -1,
             color: this.getRandomBlueColor(),
-            glow: Math.random() > 0.7, // Some particles have stronger glow
+            glow: Math.random() > 0.3, // Mais partículas com glow (70%)
+            // Adicionado: peso visual para partículas maiores
+            weight: radius > 8 ? 'heavy' : radius > 6 ? 'medium' : 'light'
         };
     }
     
     getRandomBlueColor() {
-        // Array of blue/cyan colors for variety
+        // Cores mais vibrantes como na imagem
         const colors = [
-            { r: 0, g: 180, b: 255 },   // Cyan blue
-            { r: 100, g: 200, b: 255 },  // Light blue
-            { r: 0, g: 150, b: 255 },    // Medium blue
-            { r: 0, g: 120, b: 220 },    // Darker blue
-            { r: 70, g: 170, b: 255 },   // Sky blue
+            { r: 0, g: 200, b: 255 },   // Ciano vibrante
+            { r: 100, g: 220, b: 255 }, // Azul claro
+            { r: 0, g: 180, b: 255 },   // Azul médio
+            { r: 50, g: 150, b: 255 },  // Azul royal
+            { r: 0, g: 160, b: 230 },   // Azul mais escuro
+            { r: 120, g: 200, b: 255 }, // Azul céu
         ];
         
         return colors[Math.floor(Math.random() * colors.length)];
@@ -139,28 +148,35 @@ class ParticleSystem {
         const height = this.canvas.height;
         
         this.particles.forEach(particle => {
-            // Update position
-            particle.x += particle.speed.x;
-            particle.y -= particle.speed.y;
+            // Update position - partículas maiores se movem mais devagar
+            const speedMultiplier = particle.radius > 8 ? 0.7 : particle.radius > 6 ? 0.85 : 1;
+            particle.x += particle.speed.x * speedMultiplier;
+            particle.y -= particle.speed.y * speedMultiplier;
             
-            // Pulsing effect
-            particle.alpha += particle.pulseSpeed * particle.pulseDirection;
+            // Pulsing effect - mais suave para partículas maiores
+            const pulseMultiplier = particle.radius > 8 ? 0.8 : 1;
+            particle.alpha += particle.pulseSpeed * particle.pulseDirection * pulseMultiplier;
             if (particle.alpha > 1 || particle.alpha < 0.3) {
                 particle.pulseDirection *= -1;
                 particle.alpha = Math.max(0.3, Math.min(1, particle.alpha));
             }
             
             // Wrap around edges
-            if (particle.x > width + 20) particle.x = -20;
-            if (particle.x < -20) particle.x = width + 20;
-            if (particle.y < -20) {
-                particle.y = height + 20;
+            if (particle.x > width + 50) particle.x = -50;
+            if (particle.x < -50) particle.x = width + 50;
+            if (particle.y < -50) {
+                particle.y = height + 50;
                 particle.x = Math.random() * width;
             }
             
-            // Subtle horizontal oscillation
-            particle.speed.x += (Math.random() - 0.5) * 0.01;
-            particle.speed.x = Math.max(-0.3, Math.min(0.3, particle.speed.x));
+            // Movimento mais suave para partículas maiores
+            if (particle.radius > 8) {
+                particle.speed.x += (Math.random() - 0.5) * 0.005;
+                particle.speed.x = Math.max(-0.2, Math.min(0.2, particle.speed.x));
+            } else {
+                particle.speed.x += (Math.random() - 0.5) * 0.01;
+                particle.speed.x = Math.max(-0.3, Math.min(0.3, particle.speed.x));
+            }
         });
     }
     
@@ -168,17 +184,24 @@ class ParticleSystem {
         // Clear canvas with transparency
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        this.particles.forEach(particle => {
+        // Desenhar partículas maiores primeiro (para camadas)
+        const sortedParticles = [...this.particles].sort((a, b) => a.radius - b.radius);
+        
+        sortedParticles.forEach(particle => {
+            // Raio do gradiente proporcional ao tamanho da partícula
+            const gradientRadius = particle.radius * 3.5;
+            
             // Create gradient for glow effect
             const gradient = this.ctx.createRadialGradient(
                 particle.x, particle.y, 0,
-                particle.x, particle.y, particle.radius * 3
+                particle.x, particle.y, gradientRadius
             );
             
             if (particle.glow) {
-                // Stronger glow for some particles
-                gradient.addColorStop(0, `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${particle.alpha})`);
-                gradient.addColorStop(0.5, `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${particle.alpha * 0.5})`);
+                // Glow mais forte para partículas maiores
+                const glowStrength = particle.radius > 8 ? 0.9 : particle.radius > 6 ? 0.7 : 0.5;
+                gradient.addColorStop(0, `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${particle.alpha * glowStrength})`);
+                gradient.addColorStop(0.3, `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${particle.alpha * glowStrength * 0.6})`);
                 gradient.addColorStop(1, `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, 0)`);
             } else {
                 // Regular particles
@@ -193,12 +216,27 @@ class ParticleSystem {
             this.ctx.fillStyle = gradient;
             this.ctx.fill();
             
-            // Add glow/blur effect
+            // Adicionar glow/brilho para partículas maiores
             if (particle.glow) {
-                this.ctx.shadowColor = `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, 0.8)`;
-                this.ctx.shadowBlur = 15;
+                this.ctx.shadowColor = `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, 0.7)`;
+                this.ctx.shadowBlur = particle.radius * 3; // Glow proporcional ao tamanho
                 this.ctx.fill();
                 this.ctx.shadowBlur = 0; // Reset shadow
+            }
+            
+            // Adicionar brilho central para partículas maiores
+            if (particle.radius > 7) {
+                const innerGradient = this.ctx.createRadialGradient(
+                    particle.x, particle.y, 0,
+                    particle.x, particle.y, particle.radius * 0.7
+                );
+                innerGradient.addColorStop(0, `rgba(255, 255, 255, ${particle.alpha * 0.3})`);
+                innerGradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
+                
+                this.ctx.beginPath();
+                this.ctx.arc(particle.x, particle.y, particle.radius * 0.5, 0, Math.PI * 2);
+                this.ctx.fillStyle = innerGradient;
+                this.ctx.fill();
             }
         });
     }
@@ -257,17 +295,20 @@ class ParticleSystem {
         if (prefersReducedMotion.matches) {
             // Slow down animation for accessibility
             this.particles.forEach(particle => {
-                particle.speed.x *= 0.5;
-                particle.speed.y *= 0.5;
+                particle.speed.x *= 0.3;
+                particle.speed.y *= 0.3;
+                particle.pulseSpeed *= 0.5;
             });
         }
         
         // Listen for changes
         prefersReducedMotion.addEventListener('change', (e) => {
-            const speedMultiplier = e.matches ? 0.5 : 1;
+            const speedMultiplier = e.matches ? 0.3 : 1;
+            const pulseMultiplier = e.matches ? 0.5 : 1;
             this.particles.forEach(particle => {
                 particle.speed.x *= speedMultiplier;
                 particle.speed.y *= speedMultiplier;
+                particle.pulseSpeed *= pulseMultiplier;
             });
         });
     }
@@ -323,9 +364,13 @@ class ParticleSystem {
                     const dy = mouseY - particle.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     
-                    if (distance < 100) {
+                    // Partículas maiores reagem menos ao mouse
+                    const reactionDistance = particle.radius > 8 ? 150 : 200;
+                    const reactionStrength = particle.radius > 8 ? 0.3 : 0.5;
+                    
+                    if (distance < reactionDistance) {
                         // Push particles away from cursor
-                        const force = (100 - distance) / 100 * 0.5;
+                        const force = (reactionDistance - distance) / reactionDistance * reactionStrength;
                         particle.x -= (dx / distance) * force;
                         particle.y -= (dy / distance) * force;
                     }
@@ -347,6 +392,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // window.particleSystem.enableMouseInteraction();
         }, 500);
     });
+    
+    // Fallback: start particles even if preloader doesn't fire
+    setTimeout(() => {
+        if (!window.particleSystem) {
+            window.particleSystem = new ParticleSystem();
+        }
+    }, 2000);
 });
 
 // Export for module systems

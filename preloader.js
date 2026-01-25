@@ -14,6 +14,16 @@ class Preloader {
     init() {
         if (!this.preloader) return;
         
+        // Check if user already visited today
+        if (this.hasVisitedToday()) {
+            this.hidePreloader();
+            this.initializePage();
+            return;
+        }
+        
+        // Save today's date for future visits
+        this.saveVisitDate();
+        
         // Count total resources to load
         this.countResources();
         
@@ -27,6 +37,24 @@ class Preloader {
         setTimeout(() => {
             this.hidePreloader();
         }, 4000);
+    }
+    
+    hasVisitedToday() {
+        const lastVisit = localStorage.getItem('cronos_last_visit');
+        if (!lastVisit) return false;
+        
+        const lastVisitDate = new Date(lastVisit);
+        const today = new Date();
+        
+        // Check if same day
+        return lastVisitDate.getDate() === today.getDate() &&
+               lastVisitDate.getMonth() === today.getMonth() &&
+               lastVisitDate.getFullYear() === today.getFullYear();
+    }
+    
+    saveVisitDate() {
+        const today = new Date();
+        localStorage.setItem('cronos_last_visit', today.toISOString());
     }
     
     countResources() {
@@ -139,7 +167,7 @@ class Preloader {
     }
     
     hidePreloader() {
-        if (!this.preloader) return;
+        if (!this.preloader || this.preloader.style.display === 'none') return;
         
         // Animate out
         this.preloader.style.opacity = '0';
