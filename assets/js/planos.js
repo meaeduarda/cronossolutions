@@ -8,14 +8,14 @@ function selectPlan(planName, price, maintenance, features) {
     // Criar mensagem
     const message = `Olá Cronos Solutions! Gostaria de solicitar um orçamento para o plano:
 
-📋 *${planName}*
-💰 *Valor:* ${price}
-🔧 *Manutenção:* ${maintenance}
+*${planName}*
+*Valor:* ${price}
+*Manutenção:* ${maintenance}
 
-✨ *Inclui:*
+*Inclui:*
 ${featuresList}
 
-💬 *Mensagem enviada através do site cronossolutions.com.br*
+*Mensagem enviada através do site cronossolutions.com.br*
 
 Gostaria de mais informações sobre este plano!`;
     
