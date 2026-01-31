@@ -92,7 +92,7 @@ h6 {
 }
 
 .header.scrolled {
-    background: var(--white);
+    background: #0F0F0F;
     box-shadow: var(--shadow);
     padding: 10px 0;
 }
