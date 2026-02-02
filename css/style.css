@@ -657,7 +657,7 @@ h6 {
     z-index: 1;
 }
 
- /* ==== Container section ====*/
+/* ==== Container section ====*/
 .about-section,
 .services-section,
 .pricing-section,
@@ -1041,6 +1041,7 @@ h6 {
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     margin-top: 40px;
+    align-items: stretch;
 }
 
 /* Standard Cards (Free, Standard, Ultimate) */
@@ -1049,8 +1050,8 @@ h6 {
     border: 1px solid #1E293B;
     border-radius: 12px;
     padding: 24px;
-    height: 520px;
-    min-height: 520px;
+    height: 100%;
+    min-height: 540px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1170,8 +1171,8 @@ h6 {
     border: none;
     border-radius: 12px;
     padding: 24px;
-    height: 540px;
-    min-height: 540px;
+    height: 100%;
+    min-height: 560px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1179,8 +1180,15 @@ h6 {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    transform: translateY(-20px);
+    transform: translateY(-10px);
     box-shadow: 0 25px 50px rgba(56, 189, 248, 0.3);
+}
+
+.price-card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
 }
 
 .pricing-card-premium:hover {
@@ -1246,7 +1254,7 @@ h6 {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);    
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
     margin-top: auto;
 }
 
@@ -1262,6 +1270,7 @@ h6 {
     .pricing-cards-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
+        align-items: stretch;
     }
 
     .pricing-card-premium {
@@ -1272,7 +1281,7 @@ h6 {
     .pricing-card-premium:hover {
         transform: translateY(-5px);
     }
-    
+
     .pricing-card-standard,
     .pricing-card-premium {
         height: auto;
@@ -1294,6 +1303,7 @@ h6 {
         max-width: 400px;
         margin-left: auto;
         margin-right: auto;
+        align-items: stretch;
     }
 
     .see-all-top-container {
@@ -1330,6 +1340,227 @@ h6 {
 
     .pricing-card-premium .pricing-amount {
         font-size: 36px;
+    }
+}
+
+/* ===== NOVA ESTRUTURA DE PREÇOS - USANDO CLASSES EXISTENTES ===== */
+/* Adicionar ao final do seu CSS atual */
+
+/* Container de desconto - NOVO */
+.discount-badge-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #94A3B8;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+}
+
+.discount-tag {
+    background-color: #10B981;
+    color: #FFFFFF;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+/* Preço principal - MODIFICANDO classes existentes */
+.pricing-price-container {
+    margin: 16px 0;
+    text-align: center;
+}
+
+.pricing-amount {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    color: #FFFFFF;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.pricing-amount .currency {
+    font-size: 24px;
+    margin-right: 4px;
+}
+
+.pricing-amount .amount {
+    font-size: 48px;
+    font-weight: 800;
+}
+
+.pricing-amount .period {
+    font-size: 16px;
+    margin-left: 4px;
+}
+
+.pricing-period {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #94A3B8;
+    margin-top: 8px;
+}
+
+/* Texto do período total - NOVO */
+.total-period-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #94A3B8;
+    margin: 8px 0 16px;
+}
+
+/* Badge de economia - NOVO */
+.savings-badge {
+    border: 1px solid #10B981;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #10B981;
+    width: fit-content;
+    margin: 16px auto;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+/* Ajustes para o plano Pro (Premium) */
+.pricing-card-premium .old-price {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.pricing-card-premium .discount-tag {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #38BDF8;
+}
+
+.pricing-card-premium .total-period-text {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.pricing-card-premium .savings-badge {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Ajuste na lista de features */
+.pricing-features-list {
+    margin: 24px 0;
+    flex-grow: 1;
+}
+
+.pricing-features-list li {
+    display: block !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    padding-left: 30px !important;
+    position: relative;
+}
+
+.pricing-features-list li::before {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    margin-right: 10px !important;
+}
+
+/* Ajuste para descrição do plano - NOVO */
+.plan-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #94A3B8;
+    line-height: 1.5;
+    margin-top: 8px;
+    text-align: center;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pricing-card-premium .plan-description {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Nota de rodapé - NOVO */
+.pricing-footer-note {
+    color: #94A3B8;
+    font-size: 0.85rem;
+    font-family: 'Inter', sans-serif;
+    max-width: 600px;
+    margin: 40px auto 0;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 1199.98px) {
+    .pricing-amount {
+        font-size: 40px;
+    }
+
+    .pricing-amount .amount {
+        font-size: 40px;
+    }
+
+    .pricing-card-premium .pricing-amount {
+        font-size: 44px;
+    }
+
+    .pricing-card-premium .pricing-amount .amount {
+        font-size: 44px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .pricing-amount {
+        font-size: 36px;
+    }
+
+    .pricing-amount .amount {
+        font-size: 36px;
+    }
+
+    .pricing-card-premium .pricing-amount {
+        font-size: 40px;
+    }
+
+    .pricing-card-premium .pricing-amount .amount {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .pricing-amount {
+        font-size: 32px;
+    }
+
+    .pricing-amount .amount {
+        font-size: 32px;
+    }
+
+    .pricing-card-premium .pricing-amount {
+        font-size: 36px;
+    }
+
+    .pricing-card-premium .pricing-amount .amount {
+        font-size: 36px;
+    }
+
+    .discount-badge-container {
+        flex-direction: column;
+        gap: 5px;
     }
 }
 
@@ -1533,7 +1764,7 @@ h6 {
 }
 
 .hollow-text {
-    color: #38BDF8;  
+    color: #38BDF8;
     position: relative;
     font-weight: 700;
 }
