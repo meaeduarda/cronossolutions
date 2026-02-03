@@ -4,15 +4,15 @@ class PricingCalculator {
         this.plans = {
             start: {
                 name: "Cronos Start",
-                originalPrice: 1048.50,
+                originalPrice: 1348.50,
                 discountPercentage: 20,
-                months: 12,  // 12 meses
-                isLifetime: true,  // Apenas o visual é vitalício
-                paymentType: "lifetime"  // Tipo de pagamento
+                months: 12,  
+                isLifetime: true,  
+                paymentType: "lifetime"  
             },
             plus: {
                 name: "Cronos Plus",
-                originalPrice: 1798.00,
+                originalPrice: 2398.80,
                 discountPercentage: 40,
                 months: 12,
                 isLifetime: false,
@@ -28,9 +28,9 @@ class PricingCalculator {
             },
             premium: {
                 name: "Cronos Premium",
-                originalPrice: 21600,
-                discountPercentage: 75,
-                months: 36,
+                originalPrice: 9600.00,
+                discountPercentage: 20,
+                months: 12,
                 isLifetime: false,
                 paymentType: "subscription"
             }
@@ -87,6 +87,9 @@ class PricingCalculator {
         const card = document.querySelector(`.pricing-card[data-plan="${planKey}"]`);
         if (!card) return;
         
+        // Adicionar badge "A PARTIR DE"
+        this.addStartingBadge(card);
+        
         // Preço original com desconto
         const oldPriceEl = card.querySelector('.old-price');
         if (oldPriceEl) {
@@ -111,10 +114,10 @@ class PricingCalculator {
         if (totalPeriod) {
             if (planData.isLifetime) {
                 // Para Start (vitalício visual)
-                totalPeriod.textContent = `${planData.formatted.discountedPrice} Vitalício`;
+                totalPeriod.textContent = `${planData.formatted.discountedPrice} valor único`;
             } else {
                 totalPeriod.textContent = `${planData.formatted.discountedPrice} anual`;
-            };
+            }
         }
         
         // Economia
@@ -126,6 +129,13 @@ class PricingCalculator {
         // Adicionar badge "VITALÍCIO" apenas para o plano Start
         if (planData.isLifetime) {
             this.addLifetimeBadge(card);
+        }
+        
+        // Botões centralizados
+        const button = card.querySelector('.pricing-btn');
+        if (button) {
+            button.style.margin = '1.5rem auto 0';
+            button.style.display = 'block';
         }
     }
 
@@ -142,6 +152,7 @@ class PricingCalculator {
         // Adicionar badge "VITALÍCIO" verde
         const lifetimeBadge = document.createElement('div');
         lifetimeBadge.className = 'lifetime-badge';
+        lifetimeBadge.textContent = 'VITALÍCIO';
         
         // Inserir após o nome do plano
         const planName = header.querySelector('.pricing-plan-name');
@@ -149,6 +160,26 @@ class PricingCalculator {
             planName.insertAdjacentElement('afterend', lifetimeBadge);
         } else {
             header.prepend(lifetimeBadge);
+        }
+    }
+
+    addStartingBadge(card) {
+        const header = card.querySelector('.price-card-header');
+        if (!header) return;
+        
+        // Remover badge anterior se existir
+        const existingBadge = header.querySelector('.starting-badge');
+        if (existingBadge) existingBadge.remove();
+        
+        // Adicionar badge "A PARTIR DE"
+        const startingBadge = document.createElement('div');
+        startingBadge.className = 'starting-badge';
+        startingBadge.textContent = 'A PARTIR DE';
+        
+        // Inserir antes do preço principal
+        const priceBody = card.querySelector('.price-card-body');
+        if (priceBody) {
+            priceBody.insertBefore(startingBadge, priceBody.firstChild);
         }
     }
 
