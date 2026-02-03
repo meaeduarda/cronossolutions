@@ -13,7 +13,7 @@ class PricingCalculator {
             plus: {
                 name: "Cronos Plus",
                 originalPrice: 2398.80,
-                discountPercentage: 40,
+                discountPercentage: 20,
                 months: 12,
                 isLifetime: false,
                 paymentType: "subscription"
