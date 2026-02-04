@@ -46,13 +46,14 @@ h6 {
 }
 
 /* ===== PRELOADER ===== */
+/* ===== PRELOADER ===== */
 #preloader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--primary-color);
+    background: #0F0F0F;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,24 +64,199 @@ h6 {
 .preloader-content {
     text-align: center;
     color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Container do cubo - AUMENTADO */
+.cube-container {
+    margin-bottom: 30px;
+    width: 200px; /* Aumentado de 120px */
+    height: 200px; /* Aumentado de 120px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Cubo com efeito de pulsação - AUMENTADO */
+.pulsating-cube {
+    width: 150px; /* Aumentado de 80px */
+    height: 150px; /* Aumentado de 80px */
+    animation: cubePulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.7));
+    object-fit: contain;
+}
+
+@keyframes cubePulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.7));
+    }
+    50% {
+        transform: scale(1.15); /* Aumentado ligeiramente */
+        filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.9));
+    }
+}
+
+/* Efeito de brilho adicional */
+.cube-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px; /* Aumentado proporcionalmente */
+    height: 180px; /* Aumentado proporcionalmente */
+    background: radial-gradient(circle at center, 
+        rgba(56, 189, 248, 0.4) 0%, 
+        rgba(56, 189, 248, 0.2) 40%,
+        transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+/* Spinner abaixo do cubo */
 .preloader-content .spinner-border {
     width: 3rem;
     height: 3rem;
+    border-width: 3px;
+    margin-top: 10px;
 }
 
 .loading-text #percent {
-    font-size: 2rem;
+    font-size: 2.5rem; /* Aumentado de 2rem */
     font-weight: bold;
     display: block;
     font-family: 'Poppins', sans-serif;
+    background: linear-gradient(90deg, #38BDF8, #FFFFFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 10px;
 }
 
 .loading-text p {
     margin-top: 1rem;
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Aumentado de 1.1rem */
     font-family: 'Inter', sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.5px;
+}
+
+/* Efeito de fade out quando o preloader some */
+#preloader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Responsividade para o preloader */
+@media (max-width: 1024px) {
+    .cube-container {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .pulsating-cube {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .cube-container::before {
+        width: 160px;
+        height: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cube-container {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 25px;
+    }
+    
+    .pulsating-cube {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .cube-container::before {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .loading-text #percent {
+        font-size: 2.2rem;
+    }
+    
+    .loading-text p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cube-container {
+        width: 130px;
+        height: 130px;
+        margin-bottom: 20px;
+    }
+    
+    .pulsating-cube {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .cube-container::before {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .preloader-content .spinner-border {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    
+    .loading-text #percent {
+        font-size: 2rem;
+    }
+    
+    .loading-text p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .cube-container {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .pulsating-cube {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .cube-container::before {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .loading-text #percent {
+        font-size: 1.8rem;
+    }
 }
 
 /* ===== HEADER & NAVBAR ===== */
