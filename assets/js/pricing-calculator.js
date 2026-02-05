@@ -1,79 +1,31 @@
 class PricingCalculator {
     constructor() {
-        // CONFIGURAÇÃO DOS PLANOS
         this.plans = {
             start: {
                 name: "Cronos Start",
-                originalPrice: 1348.50,
-                discountPercentage: 20,
-                months: 12,
-                isLifetime: true,
-                paymentType: "lifetime",
-                icon: "fa-rocket",
-                features: [
-                    "Autônomos e pequenas empresas",
-                    "Site institucional responsivo",
-                    "Até 5 páginas personalizadas",
-                    "Botão WhatsApp integrado",
-                    "Formulário de contato",
-                    "Publicação do site"
-                ]
+                customPrice: true,
+                icon: "fa-rocket"
             },
             plus: {
                 name: "Cronos Plus",
                 originalPrice: 2398.80,
                 discountPercentage: 20,
                 months: 12,
-                isLifetime: false,
-                paymentType: "subscription",
-                icon: "fa-star",
-                features: [
-                    "Clínicas, Lojas, consultórios",
-                    "Site institucional responsivo",
-                    "Agendamento online",
-                    "Cadastro de clientes",
-                    "Painel administrativo",
-                    "Histórico simples",
-                    "Suporte padrão"
-                ]
+                icon: "fa-star"
             },
             pro: {
                 name: "Cronos Pro",
                 originalPrice: 3588.00,
                 discountPercentage: 10,
                 months: 12,
-                isLifetime: false,
-                paymentType: "subscription",
-                icon: "fa-crown",
-                features: [
-                    "Clínicas, oficinas, lojas",
-                    "Painel do cliente/Usuário",
-                    "Histórico de Serviços",
-                    "Relatórios",
-                    "E-commerce (se aplicável)",
-                    "Catálogo / Galerias",
-                    "Controle de acesso por perfil",
-                    "Domínio premium",
-                    "Suporte prioritário"
-                ]
+                icon: "fa-crown"
             },
             premium: {
                 name: "Cronos Premium",
                 originalPrice: 9600.00,
                 discountPercentage: 20,
                 months: 12,
-                isLifetime: false,
-                paymentType: "subscription",
-                icon: "fa-gem",
-                features: [
-                    "Sistema customizado por segmento",
-                    "Painel digital Recepção (TV)",
-                    "E-commerce (se aplicável)",
-                    "Painel administrativo avançado",
-                    "Integrações (WhatsApp e pagamento)",
-                    "Sistema de Gestão Completo",
-                    "Suporte 24/7 prioritário"
-                ]
+                icon: "fa-gem"
             }
         };
         
@@ -90,6 +42,14 @@ class PricingCalculator {
         
         if (!plan) return null;
         
+        if (planKey === 'start') {
+            return {
+                name: plan.name,
+                customPrice: true,
+                icon: plan.icon
+            };
+        }
+        
         const discountAmount = (plan.originalPrice * plan.discountPercentage) / 100;
         const discountedPrice = plan.originalPrice - discountAmount;
         const monthlyPrice = discountedPrice / plan.months;
@@ -101,11 +61,8 @@ class PricingCalculator {
             discountPercentage: plan.discountPercentage,
             discountedPrice: discountedPrice,
             monthlyPrice: monthlyPrice,
-            months: plan.months,
             savings: savings,
-            isLifetime: plan.isLifetime,
-            paymentType: plan.paymentType,
-            features: plan.features,
+            icon: plan.icon,
             formatted: {
                 originalPrice: this.formatCurrency(plan.originalPrice),
                 discountedPrice: this.formatCurrency(discountedPrice),
@@ -128,67 +85,139 @@ class PricingCalculator {
         const card = document.querySelector(`.pricing-card[data-plan="${planKey}"]`);
         if (!card) return;
         
-        // Adicionar badge "A PARTIR DE"
-        this.addStartingBadge(card);
+        this.clearPriceElements(card);
         
-        // Preço original com desconto
+        if (planKey === 'start') {
+            this.updateStartPlanCard(card);
+            return;
+        }
+        
+        this.updatePricedPlanCard(card, planData);
+    }
+
+    updateStartPlanCard(card) {
+        const oldPriceEl = card.querySelector('.old-price');
+        if (oldPriceEl) {
+            oldPriceEl.textContent = '';
+            oldPriceEl.style.display = 'none';
+        }
+        
+        const discountTag = card.querySelector('.discount-tag');
+        if (discountTag) {
+            discountTag.textContent = '';
+            discountTag.style.display = 'none';
+        }
+        
+        const mainPrice = card.querySelector('.main-price .amount');
+        if (mainPrice) {
+            mainPrice.textContent = '';
+        }
+        
+        const currencySpan = card.querySelector('.main-price .currency');
+        if (currencySpan) {
+            currencySpan.textContent = '';
+        }
+        
+        const periodSpan = card.querySelector('.main-price .period');
+        if (periodSpan) {
+            periodSpan.textContent = '';
+        }
+        
+        const totalPeriod = card.querySelector('.total-period');
+        if (totalPeriod) {
+            totalPeriod.textContent = '';
+            totalPeriod.style.display = 'none';
+        }
+        
+        const savingsBadge = card.querySelector('.savings-badge');
+        if (savingsBadge) {
+            savingsBadge.textContent = 'Valores Personalizados';
+            savingsBadge.style.display = 'block';
+        }
+        
+        const button = card.querySelector('.pricing-btn');
+        if (button) {
+            button.textContent = 'Falar com Especialista';
+            button.style.margin = '1.5rem auto 0';
+            button.style.display = 'block';
+            button.style.width = '100%';
+            button.style.maxWidth = '250px';
+            button.style.float = 'none';
+            button.style.textAlign = 'center';
+        }
+    }
+
+    updatePricedPlanCard(card, planData) {
         const oldPriceEl = card.querySelector('.old-price');
         if (oldPriceEl) {
             oldPriceEl.textContent = planData.formatted.originalPrice;
+            oldPriceEl.style.display = 'block';
         }
         
-        // Tag de desconto
         const discountTag = card.querySelector('.discount-tag');
         if (discountTag) {
             discountTag.textContent = `${planData.discountPercentage}% OFF`;
+            discountTag.style.display = 'inline-block';
         }
         
-        // Preço principal mensal
         const mainPrice = card.querySelector('.main-price .amount');
         if (mainPrice) {
             const monthlyValue = planData.monthlyPrice.toFixed(2).replace('.', ',');
             mainPrice.textContent = monthlyValue;
         }
         
-        // Período total
-        const totalPeriod = card.querySelector('.total-period');
-        if (totalPeriod) {
-            if (planData.isLifetime) {
-                totalPeriod.textContent = `${planData.formatted.discountedPrice} (valor único)`;
-            } else {
-                totalPeriod.textContent = `${planData.formatted.discountedPrice} (valor anual)`;
-            }
+        const currencySpan = card.querySelector('.main-price .currency');
+        if (currencySpan) {
+            currencySpan.textContent = 'R$';
         }
         
-        // Economia
+        const totalPeriod = card.querySelector('.total-period');
+        if (totalPeriod) {
+            totalPeriod.textContent = '';
+            totalPeriod.style.display = 'none';
+        }
+        
         const savingsBadge = card.querySelector('.savings-badge');
         if (savingsBadge) {
             savingsBadge.textContent = `Economize ${planData.formatted.savings}`;
+            savingsBadge.style.display = 'block';
         }
         
-        // Botões centralizados
         const button = card.querySelector('.pricing-btn');
         if (button) {
+            button.textContent = 'Falar com Especialista';
             button.style.margin = '1.5rem auto 0';
             button.style.display = 'block';
+            button.style.width = '100%';
+            button.style.maxWidth = '250px';
+            button.style.float = 'none';
+            button.style.textAlign = 'center';
         }
     }
 
-    addStartingBadge(card) {
-        const priceBody = card.querySelector('.price-card-body');
-        if (!priceBody) return;
+    clearPriceElements(card) {
+        const elementsToClear = [
+            '.old-price',
+            '.discount-tag',
+            '.main-price .amount',
+            '.total-period',
+            '.savings-badge',
+            '.starting-badge'
+        ];
         
-        // Remover badge anterior se existir
-        const existingBadge = priceBody.querySelector('.starting-badge');
-        if (existingBadge) existingBadge.remove();
+        elementsToClear.forEach(selector => {
+            const element = card.querySelector(selector);
+            if (element) {
+                element.textContent = '';
+                element.style.display = '';
+            }
+        });
         
-        // Adicionar badge "A PARTIR DE"
-        const startingBadge = document.createElement('div');
-        startingBadge.className = 'starting-badge';
-        startingBadge.textContent = 'A PARTIR DE';
-        
-        // Inserir antes do preço principal
-        priceBody.insertBefore(startingBadge, priceBody.firstChild);
+        const currencySpan = card.querySelector('.main-price .currency');
+        const planKey = card.getAttribute('data-plan');
+        if (currencySpan && planKey !== 'start') {
+            currencySpan.textContent = 'R$';
+        }
     }
 
     formatCurrency(value) {
@@ -200,11 +229,9 @@ class PricingCalculator {
     }
 
     setupEventListeners() {
-        // Configurar eventos de clique para todos os botões
-        const buttons = document.querySelectorAll('.pricing-btn-standard, .pricing-btn-premium');
+        const buttons = document.querySelectorAll('.pricing-btn');
         
         buttons.forEach(button => {
-            // Se já tem onclick via HTML, não adiciona outro
             if (!button.hasAttribute('onclick')) {
                 button.addEventListener('click', (event) => {
                     event.preventDefault();
@@ -220,24 +247,29 @@ class PricingCalculator {
         const planData = this.calculatePlan(planKey);
         if (!planData) return;
         
-        // Formatar a mensagem completa
-        const featuresList = planData.features.map(feature => `✓ ${feature}`).join('\n');
+        let message;
         
-        const message = `Olá Cronos Solutions! Gostaria de solicitar um orçamento para o plano:
+        if (planKey === 'start') {
+            message = `Olá Cronos Solutions! Gostaria de solicitar um orçamento personalizado para o plano:
+
+*${planData.name}*
+
+💬 *Observações:*
+Tenho interesse no plano Cronos Start e gostaria de um orçamento personalizado de acordo com minhas necessidades.
+
+*Mensagem enviada através do site cronossolutions.com.br*
+
+Aguardo seu retorno!`;
+        } else {
+            message = `Olá Cronos Solutions! Gostaria de solicitar um orçamento para o plano:
 
 *${planData.name}*
 
 📊 *Detalhes do Plano:*
 • Valor Original: ${planData.formatted.originalPrice}
 • Desconto: ${planData.discountPercentage}% OFF
-• Valor com Desconto: ${planData.formatted.discountedPrice}
-• Valor Mensal: ${planData.formatted.monthlyPrice}/mês${planData.isLifetime ? ' (valor único)' : ' (plano anual)'}
+• Valor Mensal: ${planData.formatted.monthlyPrice}/mês
 • Economia: ${planData.formatted.savings}
-
-📋 *Inclui:*
-${featuresList}
-
-🏷️ *Tipo de Pagamento:* ${planData.isLifetime ? 'Vitalício (pagamento único)' : 'Assinatura Anual'}
 
 💬 *Observações:*
 Tenho interesse neste plano e gostaria de mais informações sobre personalizações e condições de pagamento.
@@ -245,24 +277,21 @@ Tenho interesse neste plano e gostaria de mais informações sobre personalizaç
 *Mensagem enviada através do site cronossolutions.com.br*
 
 Aguardo seu retorno!`;
+        }
         
-        // Codificar mensagem para URL
         const encodedMessage = encodeURIComponent(message);
-        
-        // Criar URL do WhatsApp
         const whatsappNumber = '5581994527528';
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
         
-        // Abrir WhatsApp
         window.open(whatsappUrl, '_blank');
     }
 }
 
-// Inicializar
+// Inicializar a calculadora de preços
 document.addEventListener('DOMContentLoaded', () => {
     window.pricingCalculator = new PricingCalculator();
     
-    // Manter compatibilidade com HTML onclick
+    // Função global para compatibilidade com onclick no HTML
     window.selectPlan = function(planKey) {
         window.pricingCalculator.sendToWhatsApp(planKey);
     };

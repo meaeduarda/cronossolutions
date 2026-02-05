@@ -2341,6 +2341,12 @@ h6 {
     box-shadow: 0 10px 20px rgba(26, 95, 122, 0.3);
 }
 
+.text-muted {
+    color: #10B981 !important;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+}
+
 /* ===== FOOTER ===== */
 .footer {
     background:
