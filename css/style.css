@@ -1,4 +1,4 @@
-/* ===== VARIABLES & RESET ===== */
+/* ===== RESET ===== */
 :root {
     --primary-color: #1a5f7a;
     --secondary-color: #2d8bc0;
@@ -69,21 +69,21 @@ h6 {
     align-items: center;
 }
 
-/* Container do cubo - AUMENTADO */
+
 .cube-container {
     margin-bottom: 30px;
-    width: 200px; /* Aumentado de 120px */
-    height: 200px; /* Aumentado de 120px */
+    width: 200px; 
+    height: 200px; 
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
 }
 
-/* Cubo com efeito de pulsação - AUMENTADO */
+
 .pulsating-cube {
-    width: 150px; /* Aumentado de 80px */
-    height: 150px; /* Aumentado de 80px */
+    width: 150px; 
+    height: 150px; 
     animation: cubePulse 2s ease-in-out infinite;
     filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.7));
     object-fit: contain;
@@ -95,20 +95,20 @@ h6 {
         filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.7));
     }
     50% {
-        transform: scale(1.15); /* Aumentado ligeiramente */
+        transform: scale(1.15); 
         filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.9));
     }
 }
 
-/* Efeito de brilho adicional */
+
 .cube-container::before {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 180px; /* Aumentado proporcionalmente */
-    height: 180px; /* Aumentado proporcionalmente */
+    width: 180px; 
+    height: 180px; 
     background: radial-gradient(circle at center, 
         rgba(56, 189, 248, 0.4) 0%, 
         rgba(56, 189, 248, 0.2) 40%,
@@ -129,7 +129,7 @@ h6 {
     }
 }
 
-/* Spinner abaixo do cubo */
+
 .preloader-content .spinner-border {
     width: 3rem;
     height: 3rem;
@@ -138,7 +138,7 @@ h6 {
 }
 
 .loading-text #percent {
-    font-size: 2.5rem; /* Aumentado de 2rem */
+    font-size: 2.5rem; 
     font-weight: bold;
     display: block;
     font-family: 'Poppins', sans-serif;
@@ -151,19 +151,19 @@ h6 {
 
 .loading-text p {
     margin-top: 1rem;
-    font-size: 1.2rem; /* Aumentado de 1.1rem */
+    font-size: 1.2rem; 
     font-family: 'Inter', sans-serif;
     color: rgba(255, 255, 255, 0.8);
     letter-spacing: 0.5px;
 }
 
-/* Efeito de fade out quando o preloader some */
+
 #preloader.fade-out {
     opacity: 0;
     visibility: hidden;
 }
 
-/* Responsividade para o preloader */
+
 @media (max-width: 1024px) {
     .cube-container {
         width: 180px;
@@ -259,7 +259,7 @@ h6 {
     }
 }
 
-/* ===== HEADER & NAVBAR ===== */
+/* ===== HEADER NAVBAR ===== */
 .header {
     padding: 15px 0;
     transition: var(--transition);
@@ -334,7 +334,7 @@ h6 {
     background: #ffffff;
 }
 
-/* ===== LINKS DA NAVBAR  ===== */
+/* ===== LINKS ===== */
 .header.scrolled .navbar-nav .nav-link {
     color: var(--dark-color) !important;
     font-weight: 500;
@@ -445,7 +445,6 @@ h6 {
     z-index: 1;
 }
 
-/* Hero Background Overlay */
 .hero-bg-overlay {
     position: absolute;
     top: 0;
@@ -460,7 +459,6 @@ h6 {
     opacity: 0.3;
 }
 
-/* Hero Title Container */
 .hero-title-container {
     margin-bottom: 30px;
 }
@@ -494,7 +492,7 @@ h6 {
     font-family: 'Inter', sans-serif;
 }
 
-/* Hero Title */
+
 .hero-title {
     font-size: 4rem;
     line-height: 1.1;
@@ -540,7 +538,7 @@ h6 {
     font-family: 'Poppins', sans-serif;
 }
 
-/* Hero Subtitle */
+
 .hero-subtitle {
     font-size: 1.4rem;
     line-height: 1.8;
@@ -551,7 +549,7 @@ h6 {
     font-family: 'Inter', sans-serif;
 }
 
-/* Hero Buttons */
+
 .hero-buttons {
     display: flex;
     gap: 20px;
@@ -653,7 +651,6 @@ h6 {
     padding: 100px 0;
 }
 
-/* Slider Navigation Arrows */
 .swiper-button-next.hero-next,
 .swiper-button-prev.hero-prev {
     width: 60px;
@@ -700,7 +697,6 @@ h6 {
     right: 30px;
 }
 
-/* Pagination */
 .swiper-pagination.hero-pagination {
     bottom: 40px !important;
     text-align: center;
@@ -741,7 +737,7 @@ h6 {
     box-shadow: 0 0 20px var(--accent-color);
 }
 
-/* Slide Counter */
+
 .slide-counter {
     position: absolute;
     bottom: 40px;
@@ -789,7 +785,7 @@ h6 {
     text-align: center;
 }
 
-/* Slide Animation */
+
 .swiper-slide {
     opacity: 0;
     transform: translateY(50px);
@@ -801,7 +797,7 @@ h6 {
     transform: translateY(0);
 }
 
-/* ===== PARTICLE STYLES ===== */
+/* ===== PARTICLE ===== */
 .particles-canvas {
     position: absolute;
     top: 0;
@@ -833,7 +829,7 @@ h6 {
     z-index: 1;
 }
 
-/* ==== Container section ====*/
+
 .about-section,
 .services-section,
 .pricing-section,
@@ -930,7 +926,7 @@ h6 {
     transform: translateX(5px);
 }
 
-/* ===== SOBRE NÓS SECTION ===== */
+/* ===== ABOUT SECTION ===== */
 .about-section {
     position: relative;
     background: linear-gradient(90deg, #020617 0%, #020B2A 100%);
@@ -1046,7 +1042,6 @@ h6 {
     font-family: 'Inter', sans-serif;
 }
 
-/* ===== WHY CHOOSE US SECTION ===== */
 .why-section {
     background: #121212;
     color: #ffffff;
@@ -1140,7 +1135,7 @@ h6 {
     font-weight: 400;
 }
 
-/* ===== PRICING PLANS SECTION (PREMIUM TECH STYLE) ===== */
+/* =====PLANS SECTION ===== */
 .pricing-section {
     background: linear-gradient(90deg, #020617 0%, #020B2A 100%);
     position: relative;
@@ -1149,7 +1144,7 @@ h6 {
     min-height: 680px;
 }
 
-/* Eyebrow text */
+
 .pricing-eyebrow {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -1161,7 +1156,7 @@ h6 {
     display: inline-block;
 }
 
-/* Main title */
+
 .pricing-main-title {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
@@ -1171,7 +1166,7 @@ h6 {
     line-height: 1.2;
 }
 
-/* Subtitle */
+
 .pricing-subtitle {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
@@ -1182,7 +1177,7 @@ h6 {
     line-height: 1.6;
 }
 
-/* See All Plans Button (top right) */
+
 .see-all-top-container {
     position: absolute;
     top: 0;
@@ -1211,7 +1206,7 @@ h6 {
     color: #FFFFFF;
 }
 
-/* Pricing Cards Grid */
+
 .pricing-cards-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1220,7 +1215,7 @@ h6 {
     align-items: stretch;
 }
 
-/* Standard Cards (Free, Standard, Ultimate) */
+
 .pricing-card-standard {
     background: transparent;
     border: 1px solid #1E293B;
@@ -1243,7 +1238,7 @@ h6 {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Icon in cards */
+
 .pricing-card-icon {
     color: #38BDF8;
     font-size: 28px;
@@ -1254,7 +1249,7 @@ h6 {
     justify-content: center;
 }
 
-/* Plan name */
+
 .pricing-plan-name {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -1265,7 +1260,7 @@ h6 {
     letter-spacing: 0.5px;
 }
 
-/* Price container */
+
 .pricing-price-container {
     margin: 16px 0;
 }
@@ -1288,7 +1283,7 @@ h6 {
     letter-spacing: 1px;
 }
 
-/* Features list */
+
 .pricing-features-list {
     list-style: none;
     padding: 0;
@@ -1315,7 +1310,7 @@ h6 {
     font-weight: bold;
 }
 
-/* Standard button */
+
 .pricing-btn-standard {
     background: transparent;
     border: 1px solid #38BDF8;
@@ -1341,7 +1336,7 @@ h6 {
     box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
 }
 
-/* ===== PREMIUM CARD (PRO PLAN) ===== */
+/* ===== PREMIUM CARD  ===== */
 .pricing-card-premium {
     background: #38BDF8;
     border: none;
@@ -1372,7 +1367,7 @@ h6 {
     box-shadow: 0 30px 60px rgba(56, 189, 248, 0.4);
 }
 
-/* Popular ribbon */
+
 .popular-ribbon {
     position: absolute;
     top: 20px;
@@ -1390,7 +1385,7 @@ h6 {
     z-index: 2;
 }
 
-/* Premium card content - all white */
+
 .pricing-card-premium .pricing-card-icon,
 .pricing-card-premium .pricing-plan-name,
 .pricing-card-premium .pricing-amount,
@@ -1408,13 +1403,13 @@ h6 {
     opacity: 0.8;
 }
 
-/* Premium card price */
+
 .pricing-card-premium .pricing-amount {
     font-size: 40px;
     font-weight: 800;
 }
 
-/* Premium button */
+
 .pricing-btn-premium {
     background: #FFFFFF;
     border: none;
@@ -1519,10 +1514,7 @@ h6 {
     }
 }
 
-/* ===== NOVA ESTRUTURA DE PREÇOS - USANDO CLASSES EXISTENTES ===== */
-/* Adicionar ao final do seu CSS atual */
 
-/* Container de desconto - NOVO */
 .discount-badge-container {
     display: flex;
     justify-content: center;
@@ -1548,7 +1540,7 @@ h6 {
     font-size: 12px;
 }
 
-/* Preço principal - MODIFICANDO classes existentes */
+
 .pricing-price-container {
     margin: 16px 0;
     text-align: center;
@@ -1588,7 +1580,6 @@ h6 {
     margin-top: 8px;
 }
 
-/* Texto do período total - NOVO */
 .total-period-text {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
@@ -1596,7 +1587,7 @@ h6 {
     margin: 8px 0 16px;
 }
 
-/* Badge de economia - NOVO */
+
 .savings-badge {
     border: 1px solid #10B981;
     border-radius: 20px;
@@ -1610,7 +1601,7 @@ h6 {
     background: rgba(16, 185, 129, 0.1);
 }
 
-/* Ajustes para o plano Pro (Premium) */
+
 .pricing-card-premium .old-price {
     color: rgba(255, 255, 255, 0.7);
 }
@@ -1630,7 +1621,7 @@ h6 {
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Ajuste na lista de features */
+
 .pricing-features-list {
     margin: 24px 0;
     flex-grow: 1;
@@ -1651,7 +1642,6 @@ h6 {
     margin-right: 10px !important;
 }
 
-/* Ajuste para descrição do plano - NOVO */
 .plan-description {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
@@ -1668,7 +1658,7 @@ h6 {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* Nota de rodapé - NOVO */
+
 .pricing-footer-note {
     color: #94A3B8;
     font-size: 0.85rem;
@@ -1853,7 +1843,7 @@ h6 {
     transition: var(--transition);
 }
 
-/* Remove efeito parallax em dispositivos móveis para melhor performance */
+
 @media (max-width: 768px) {
     .testimonials-section {
         background-attachment: scroll;
@@ -1869,14 +1859,14 @@ h6 {
     }
 }
 
-/* Para tablets */
+
 @media (max-width: 991.98px) {
     .testimonials-section {
         padding: 80px 0;
     }
 }
 
-/* Para telas muito pequenas */
+
 @media (max-width: 575.98px) {
     .testimonials-section {
         background-position: center;
@@ -1892,14 +1882,14 @@ h6 {
     }
 }
 
-/* renderização no Safari */
+
 @supports (-webkit-touch-callout: none) {
     .testimonials-section {
         background-attachment: scroll;
     }
 }
 
-/* ===== PORTFOLIO SECTION - ESTILO IDÊNTICO AO TEMPLATE ===== */
+/* ===== PORTFOLIO SECTION  ===== */
 .portfolio-section {
     background: linear-gradient(90deg, #020617 0%, #020B2A 100%);
     color: #ffffff;
@@ -1908,7 +1898,7 @@ h6 {
     overflow: visible;
 }
 
-/* Cabeçalho do Portfólio */
+
 .sec-heading {
     text-align: left;
     margin-bottom: 50px;
@@ -1954,7 +1944,7 @@ h6 {
     margin-bottom: 0;
 }
 
-/* Botão See More */
+
 .cta-area {
     flex-shrink: 0;
 }
@@ -1991,7 +1981,7 @@ h6 {
     transform: translateX(5px);
 }
 
-/* Lista de Botões de Filtro */
+
 .portfolio-btn-list {
     list-style: none;
     padding: 0;
@@ -2030,7 +2020,7 @@ h6 {
     box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
 }
 
-/* Grid do Portfólio */
+
 .portfolio-group {
     margin-top: 30px;
     overflow: visible;
@@ -2379,7 +2369,7 @@ h6 {
     font-family: 'Poppins', sans-serif;
 }
 
-/*LOGO FOOTER*/
+
 .footer-logo {
     height: 50px;
     width: auto;
@@ -2391,7 +2381,7 @@ h6 {
     filter: brightness(1.1);
 }
 
-/* RESPONSIVE LOGO */
+
 @media (max-width: 767.98px) {
     .footer-logo {
         height: 40px;
@@ -2503,9 +2493,24 @@ h6 {
     font-family: 'Inter', sans-serif;
 }
 
-/* ===== RESPONSIVE STYLES ===== */
+.developer-link {
+    color: inherit;
+    text-decoration: none;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
 
-/* Large Devices (Desktops, less than 1200px) */
+.developer-link:hover {
+    color: #2d8bc0;
+    font-weight: 700;
+    background-color: rgba(45, 139, 192, 0.1); 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 8px rgba(45, 139, 192, 0.2);
+    text-decoration: none;
+}
+
 @media (max-width: 1199.98px) {
     .hero-title {
         font-size: 3.5rem;
@@ -2520,7 +2525,7 @@ h6 {
     }
 }
 
-/* Medium Devices (Tablets, less than 992px) */
+
 @media (max-width: 991.98px) {
     .hero-section {
         padding: 150px 0 100px;
@@ -2595,7 +2600,7 @@ h6 {
     }
 }
 
-/* Small Devices (Landscape Phones, less than 768px) */
+
 @media (max-width: 767.98px) {
     .hero-section {
         padding: 120px 0 80px;
@@ -2689,7 +2694,7 @@ h6 {
     }
 }
 
-/* Extra Small Devices (Portrait Phones, less than 576px) */
+
 @media (max-width: 575.98px) {
     .hero-title {
         font-size: 2rem;
