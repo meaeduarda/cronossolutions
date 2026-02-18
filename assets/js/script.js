@@ -872,3 +872,139 @@ if ('performance' in window) {
         console.log(`Page fully loaded in ${loadTime}ms`);
     })
 }
+
+// ===== PORTFOLIO MODAL CONTENT =====
+
+const portfolioData = [
+    {
+        images: ['assets/image/portifoliogabba.png'],
+        description: 'Site institucional moderno e responsivo desenvolvido para apresentar trabalhos artísticos de forma profissional e elegante.',
+        link: 'https://www.portifoliogabba.com.br'
+    },
+    {
+        images: ['assets/image/painelgerenciamentooficina.png'],
+        description: 'Prototype de sistema completo para gerenciamento de oficina mecânica, com controle de ordens de serviço, clientes, veículos e estoque.',
+        link: '#'
+    },
+    {
+        images: ['assets/image/painelagendamentomobile.png', 'assets/image/agendamento.png'],
+        description: 'Sistema de agendamento para pet shop desenvolvido para Pets em Casa, permitindo que clientes agendem serviços de forma rápida e intuitiva.',
+        link: 'https://petshop.petsemcasa.online/'
+    },
+    {
+        images: ['assets/image/sistemaecommerce.png'],
+        description: 'E-commerce completo para pet shop, com catálogo de produtos, carrinho de compras e integração com sistema de agendamento.',
+        link: 'https://petshop.petsemcasa.online/'
+    },
+    {
+        images: ['assets/image/agendamento.png', 'assets/image/painelagendamentomobile.png'],
+        description: 'Sistema de agendamento online para pet shop, com versão mobile e painel administrativo para gestão de horários e serviços.',
+        link: 'https://petshop.petsemcasa.online/'
+    },
+    {
+        images: ['assets/image/legendarysite.png'],
+        description: 'Site institucional para Legendary Acessórios, loja especializada em miçangas e acessórios, com catálogo de produtos e informações da marca.',
+        link: 'https://www.legendaryacessorios.vercel.app'
+    }
+];
+
+let currentModalIndex = 0;
+let currentSlideIndex = 0;
+
+function openPortfolioModal(index) {
+    currentModalIndex = index;
+    currentSlideIndex = 0;
+    updateModalContent();
+    document.getElementById('portfolioModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('portfolioModal').classList.remove('show');
+    document.body.style.overflow = 'auto';
+}
+
+function updateModalContent() {
+    const data = portfolioData[currentModalIndex];
+    const carousel = document.getElementById('modalCarousel');
+    const dotsContainer = document.getElementById('carouselDots');
+    const description = document.getElementById('modalDescription');
+    const link = document.getElementById('modalLink');
+    
+    // Atualizar imagens
+    carousel.innerHTML = data.images.map((img, i) => `
+        <div class="carousel-slide ${i === 0 ? 'active' : ''}">
+            <img src="${img}" alt="Portfolio image ${i + 1}">
+        </div>
+    `).join('');
+    
+    // Atualizar dots
+    if (data.images.length > 1) {
+        dotsContainer.innerHTML = data.images.map((_, i) => `
+            <span class="dot ${i === 0 ? 'active' : ''}" onclick="changeSlide(${i})"></span>
+        `).join('');
+        dotsContainer.style.display = 'flex';
+    } else {
+        dotsContainer.style.display = 'none';
+    }
+    
+    // Atualizar descrição
+    description.textContent = data.description;
+    
+    // Atualizar link
+    link.href = data.link;
+}
+
+function changeSlide(index) {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+    currentSlideIndex = index;
+}
+
+function nextSlide() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const nextIndex = (currentSlideIndex + 1) % slides.length;
+    changeSlide(nextIndex);
+}
+
+function prevSlide() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const prevIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+    changeSlide(prevIndex);
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('portfolioModal');
+    const closeBtn = document.querySelector('.close-modal');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    
+    closeBtn.addEventListener('click', closeModal);
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    document.addEventListener('keydown', function(e) {
+        if (modal.classList.contains('show')) {
+            if (e.key === 'Escape') {
+                closeModal();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        }
+    });
+});
