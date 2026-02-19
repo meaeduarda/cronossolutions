@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
             AOS.refresh();
         });
         
-        // Add custom animations
-        this.addCustomAnimations();
+        // Add custom animations - CORRIGIDO: removido o 'this'
+        addCustomAnimations();
     } else {
         console.warn('AOS library not loaded. Animations will not work.');
         

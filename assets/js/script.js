@@ -36,18 +36,15 @@ document.addEventListener('DOMContentLoaded', function() {
         on: {
             init: function() {
                 updateSlideCounter(this);
-                // Definir o background inicial baseado no slide ativo
                 updateHeroBackground(this);
             },
             slideChange: function() {
                 updateSlideCounter(this);
-                // Atualizar o background quando o slide mudar
                 updateHeroBackground(this);
             }
         }
     });
 
-    // Update slide counter
     function updateSlideCounter(swiper) {
         const currentSlide = document.querySelector('.current-slide');
         if (currentSlide) {
@@ -55,24 +52,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Função para atualizar o background do hero baseado no slide ativo
     function updateHeroBackground(swiper) {
         const heroSection = document.querySelector('.hero-section');
         if (!heroSection) return;
         
-        // Pegar o slide atual (índice real, considerando o loop)
         const currentSlideIndex = swiper.realIndex;
         
-        // Definir as imagens de background para cada slide
         const backgroundImages = [
             'linear-gradient(rgba(10, 25, 47, 0.7), rgba(15, 35, 65, 0.75)), url("assets/image/hero1.png")',
             'linear-gradient(rgba(10, 25, 47, 0.7), rgba(15, 35, 65, 0.75)), url("assets/image/hero2.png")'
         ];
         
-        // Aplicar a imagem de background correspondente
         heroSection.style.backgroundImage = backgroundImages[currentSlideIndex];
-        
-        // Adicionar efeito de transição suave
         heroSection.style.transition = 'background-image 0.8s ease-in-out';
     }
 
@@ -136,16 +127,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ===== PARTICLES INITIALIZATION =====
-    const particlesCanvas = document.getElementById('hero-particles');
-    if (particlesCanvas) {
+        let particlesArray = []; // Mover para fora do bloco if
+
+        const particlesCanvas = document.getElementById('hero-particles');
+        if (particlesCanvas) {
         particlesCanvas.width = window.innerWidth;
         particlesCanvas.height = window.innerHeight;
-        
+    
         const ctx = particlesCanvas.getContext('2d');
-        let particlesArray = [];
         const numberOfParticles = 100;
         
-        // Particle class
         class Particle {
             constructor() {
                 this.x = Math.random() * particlesCanvas.width;
@@ -160,7 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.x += this.speedX;
                 this.y += this.speedY;
                 
-                // Bounce off edges
                 if (this.x > particlesCanvas.width) this.x = 0;
                 if (this.x < 0) this.x = particlesCanvas.width;
                 if (this.y > particlesCanvas.height) this.y = 0;
@@ -175,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Initialize particles
         function initParticles() {
             particlesArray = [];
             for (let i = 0; i < numberOfParticles; i++) {
@@ -183,11 +172,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Animate particles
         function animateParticles() {
             ctx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
             
-            // Draw gradient overlay
             const gradient = ctx.createRadialGradient(
                 particlesCanvas.width * 0.8, particlesCanvas.height * 0.2, 0,
                 particlesCanvas.width * 0.8, particlesCanvas.height * 0.2, particlesCanvas.width * 0.5
@@ -197,13 +184,11 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, particlesCanvas.width, particlesCanvas.height);
             
-            // Update and draw particles
             for (let i = 0; i < particlesArray.length; i++) {
                 particlesArray[i].update();
                 particlesArray[i].draw();
             }
             
-            // Draw connecting lines
             for (let i = 0; i < particlesArray.length; i++) {
                 for (let j = i; j < particlesArray.length; j++) {
                     const dx = particlesArray[i].x - particlesArray[j].x;
@@ -224,14 +209,12 @@ document.addEventListener('DOMContentLoaded', function() {
             requestAnimationFrame(animateParticles);
         }
         
-        // Handle resize
         function handleResize() {
             particlesCanvas.width = window.innerWidth;
             particlesCanvas.height = window.innerHeight;
             initParticles();
         }
         
-        // Initialize
         initParticles();
         animateParticles();
         window.addEventListener('resize', handleResize);
@@ -247,7 +230,6 @@ document.addEventListener('DOMContentLoaded', function() {
             header.classList.remove('scrolled');
         }
         
-        // Update scroll progress
         updateScrollProgress();
     });
     
@@ -266,7 +248,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
                 
-                // Close mobile menu if open
                 const navbarCollapse = document.querySelector('.navbar-collapse.show');
                 if (navbarCollapse) {
                     const bsCollapse = new bootstrap.Collapse(navbarCollapse);
@@ -302,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ===== ANIMATED COUNTERS =====
     const counters = document.querySelectorAll('.stat-number');
-    const speed = 200; // Lower is faster
+    const speed = 200;
     
     const animateCounter = (counter) => {
         const target = +counter.getAttribute('data-count');
@@ -317,7 +298,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    // Start counters when in viewport
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -330,7 +310,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, { threshold: 0.5 });
     
-    // Observe stats section
     const statsSection = document.querySelector('.stats-section');
     if (statsSection) {
         observer.observe(statsSection);
@@ -342,13 +321,11 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form values
             const name = this.querySelector('input[type="text"]').value.trim();
             const email = this.querySelector('input[type="email"]').value.trim();
             const subject = this.querySelector('input[type="text"]:nth-child(3)').value.trim();
             const message = this.querySelector('textarea').value.trim();
             
-            // Simple validation
             if (!name || !email || !message) {
                 showNotification('Please fill in all required fields', 'error');
                 return;
@@ -359,14 +336,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Simulate form submission
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
             submitBtn.disabled = true;
             
-            // Simulate API call
             setTimeout(() => {
                 showNotification('Message sent successfully! We\'ll get back to you soon.', 'success');
                 contactForm.reset();
@@ -376,7 +351,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Email validation function
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
@@ -384,11 +358,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ===== NOTIFICATION SYSTEM =====
     function showNotification(message, type = 'info') {
-        // Remove existing notifications
         const existing = document.querySelector('.notification');
         if (existing) existing.remove();
         
-        // Create notification element
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
@@ -401,15 +373,12 @@ document.addEventListener('DOMContentLoaded', function() {
             </button>
         `;
         
-        // Add to DOM
         document.body.appendChild(notification);
         
-        // Show notification
         setTimeout(() => {
             notification.classList.add('show');
         }, 10);
         
-        // Auto remove after 5 seconds
         const autoRemove = setTimeout(() => {
             notification.classList.remove('show');
             setTimeout(() => {
@@ -419,7 +388,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 5000);
         
-        // Close button
         notification.querySelector('.notification-close').addEventListener('click', function() {
             clearTimeout(autoRemove);
             notification.classList.remove('show');
@@ -430,63 +398,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         });
     }
-    
-    // ===== PORTFOLIO LIGHTBOX =====
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    portfolioItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const imgSrc = this.querySelector('img').src;
-            const title = this.querySelector('.portfolio-overlay h4').textContent;
-            const category = this.querySelector('.portfolio-overlay p').textContent;
-            
-            // Create lightbox
-            const lightbox = document.createElement('div');
-            lightbox.className = 'lightbox';
-            lightbox.innerHTML = `
-                <div class="lightbox-content">
-                    <button class="lightbox-close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <img src="${imgSrc}" alt="${title}">
-                    <div class="lightbox-info">
-                        <h3>${title}</h3>
-                        <p>${category}</p>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(lightbox);
-            document.body.style.overflow = 'hidden';
-            
-            // Add animation class after a delay
-            setTimeout(() => {
-                lightbox.style.opacity = '1';
-            }, 10);
-            
-            // Close lightbox
-            const closeLightbox = function(e) {
-                if (e.target === lightbox || e.target.closest('.lightbox-close')) {
-                    document.body.style.overflow = '';
-                    lightbox.style.opacity = '0';
-                    setTimeout(() => {
-                        if (lightbox.parentNode) {
-                            lightbox.parentNode.removeChild(lightbox);
-                        }
-                    }, 300);
-                }
-            };
-            
-            lightbox.addEventListener('click', closeLightbox);
-            
-            // Close with Escape key
-            document.addEventListener('keydown', function escClose(e) {
-                if (e.key === 'Escape') {
-                    closeLightbox({target: lightbox});
-                    document.removeEventListener('keydown', escClose);
-                }
-            });
-        });
-    });
     
     // ===== LAZY LOADING IMAGES =====
     const lazyImages = document.querySelectorAll('img[data-src]');
@@ -508,7 +419,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         lazyImages.forEach(img => imageObserver.observe(img));
     } else {
-        // Fallback for older browsers
         lazyImages.forEach(img => {
             img.src = img.dataset.src;
             img.classList.add('loaded');
@@ -621,20 +531,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 preloader.style.opacity = '0';
                 setTimeout(() => {
                     preloader.style.display = 'none';
-                    // Trigger AOS refresh after preloader hides
                     AOS.refresh();
                 }, 500);
             }, 300);
         }
     }
     
-    // Start preloader animation
     setTimeout(updatePreloader, 500);
+    
+    // ===== PORTFOLIO MODAL EVENT LISTENERS =====
+    const modal = document.getElementById('portfolioModal');
+    const closeBtn = document.querySelector('.close-modal');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+
+    if (modal && closeBtn && prevBtn && nextBtn) {
+        closeBtn.addEventListener('click', closeModal);
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+        
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (modal.classList.contains('show')) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            }
+        });
+    }
     
     // ===== ADD CSS FOR DYNAMIC ELEMENTS =====
     const dynamicStyles = document.createElement('style');
     dynamicStyles.textContent = `
-        /* Notification Styles */
         .notification {
             position: fixed;
             top: 20px;
@@ -675,54 +612,6 @@ document.addEventListener('DOMContentLoaded', function() {
             font-size: 1.2rem;
         }
         
-        /* Lightbox Styles */
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .lightbox-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-        }
-        
-        .lightbox-content img {
-            max-width: 100%;
-            max-height: 70vh;
-            border-radius: var(--border-radius);
-            object-fit: contain;
-        }
-        
-        .lightbox-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 10px;
-        }
-        
-        .lightbox-info {
-            color: var(--white);
-            text-align: center;
-            margin-top: 1rem;
-        }
-        
-        /* Back to Top Button */
         .back-to-top {
             position: fixed;
             bottom: 30px;
@@ -758,7 +647,6 @@ document.addEventListener('DOMContentLoaded', function() {
             box-shadow: 0 8px 20px rgba(26, 95, 122, 0.4);
         }
         
-        /* Scroll Progress */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -770,7 +658,6 @@ document.addEventListener('DOMContentLoaded', function() {
             transition: width 0.1s ease;
         }
         
-        /* Loaded image animation */
         img.loaded {
             animation: fadeIn 0.5s ease;
         }
@@ -785,126 +672,66 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== RESPONSIVE ADJUSTMENTS =====
     function adjustForMobile() {
         if (window.innerWidth < 768) {
-            // Disable autoplay on mobile for better performance
             heroSlider.autoplay.stop();
             testimonialsSlider.autoplay.stop();
             
-            // Adjust particles count on mobile
             if (particlesArray) {
                 particlesArray = particlesArray.slice(0, 50);
             }
         } else {
-            // Re-enable autoplay on desktop
             heroSlider.autoplay.start();
             testimonialsSlider.autoplay.start();
         }
     }
     
-    // Initial adjustment
     adjustForMobile();
-    
-    // Adjust on resize
     window.addEventListener('resize', adjustForMobile);
     
     // ===== TOUCH DEVICE OPTIMIZATIONS =====
     if ('ontouchstart' in window || navigator.maxTouchPoints) {
-        // Add touch-specific classes
         document.body.classList.add('touch-device');
         
-        // Improve touch targets
         const touchElements = document.querySelectorAll('button, .btn, .nav-link, .service-link');
         touchElements.forEach(element => {
             element.classList.add('touch-target');
         });
     }
     
-    // ===== INITIALIZATION COMPLETE =====
     console.log('Cronos Solutions website initialized successfully');
-    
-    // Dispatch custom event for any other scripts
     window.dispatchEvent(new Event('cronosInitialized'));
 });
 
-// ===== ADDITIONAL GLOBAL FUNCTIONS =====
-
-// Debounce function for performance
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Throttle function for scroll events
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-// ===== ERROR HANDLING =====
-window.addEventListener('error', function(e) {
-    console.error('Website error:', e.error);
-    
-    // Show user-friendly error message
-    if (e.error && e.error.message && !e.error.message.includes('ResizeObserver')) {
-        showNotification('An error occurred. Please refresh the page.', 'error');
-    }
-});
-
-// ===== PERFORMANCE MONITORING =====
-if ('performance' in window) {
-    window.addEventListener('load', function() {
-        const timing = performance.timing;
-        const loadTime = timing.loadEventEnd - timing.navigationStart;
-        console.log(`Page fully loaded in ${loadTime}ms`);
-    })
-}
-
 // ===== PORTFOLIO MODAL CONTENT =====
-
 const portfolioData = [
     {
         images: ['assets/image/portifoliogabba.png'],
-        description: 'Site institucional moderno e responsivo desenvolvido para apresentar trabalhos artísticos de forma profissional e elegante.',
+        description: 'O Portfólio Gabba apresenta a obra de um artista pernambucano com sensibilidade e identidade visual marcante. O site possui navegação fluida, responsiva e pensada para valorizar o percurso artístico. Possui formulário integrado que direciona pedidos ao WhatsApp com resumo automático, conectando arte e público de forma prática e inspiradora.',
         link: 'https://www.portifoliogabba.com.br'
     },
     {
         images: ['assets/image/painelgerenciamentooficina.png'],
-        description: 'Prototype de sistema completo para gerenciamento de oficina mecânica, com controle de ordens de serviço, clientes, veículos e estoque.',
+        description: 'Protótipo de um sistema completo para gerenciamento de oficina mecânica, com controle de ordens de serviço, clientes, veículos e estoque.',
         link: '#'
     },
     {
         images: ['assets/image/painelagendamentomobile.png', 'assets/image/agendamento.png'],
-        description: 'Sistema de agendamento para pet shop desenvolvido para Pets em Casa, permitindo que clientes agendem serviços de forma rápida e intuitiva.',
+        description: 'Sistema de agendamento para pet shop desenvolvido para Pets em Casa, permitindo que clientes agendem serviços de forma rápida e intuitiva. O Pets do Bairro é um SaaS completo para pet shops que integra loja virtual, gestão de vendas e painel administrativo em uma única plataforma.',
         link: 'https://petshop.petsemcasa.online/'
     },
     {
         images: ['assets/image/sistemaecommerce.png'],
-        description: 'E-commerce completo para pet shop, com catálogo de produtos, carrinho de compras e integração com sistema de agendamento.',
+        description: 'O e-commerce do Pets do Bairro permite que o pet shop venda produtos 24 horas por dia com loja virtual completa, organizada por categorias e integrada ao carrinho e checkout seguro. Possui controle de estoque, variações de produtos, gestão de pedidos e acompanhamento de pagamentos. Tudo conectado ao painel administrativo, facilitando a gestão das vendas e ampliando o alcance do negócio.',
         link: 'https://petshop.petsemcasa.online/'
     },
     {
         images: ['assets/image/agendamento.png', 'assets/image/painelagendamentomobile.png'],
-        description: 'Sistema de agendamento online para pet shop, com versão mobile e painel administrativo para gestão de horários e serviços.',
+        description: 'O sistema permite cadastro de clientes com área exclusiva, histórico de pedidos e dashboard personalizado. Possui módulo de serviços com agendamento de banho, tosa e atendimentos, além de teleconsulta veterinária integrada. Um grande diferencial é o perfil do pet, onde o tutor acompanha informações como aniversário, última tosa e histórico de cuidados',
         link: 'https://petshop.petsemcasa.online/'
     },
     {
         images: ['assets/image/legendarysite.png'],
         description: 'Site institucional para Legendary Acessórios, loja especializada em miçangas e acessórios, com catálogo de produtos e informações da marca.',
-        link: 'https://www.legendaryacessorios.vercel.app'
+        link: 'https://legendaryacessorios.vercel.app'
     }
 ];
 
@@ -915,12 +742,14 @@ function openPortfolioModal(index) {
     currentModalIndex = index;
     currentSlideIndex = 0;
     updateModalContent();
-    document.getElementById('portfolioModal').classList.add('show');
+    const modal = document.getElementById('portfolioModal');
+    modal.classList.add('show');
     document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-    document.getElementById('portfolioModal').classList.remove('show');
+    const modal = document.getElementById('portfolioModal');
+    modal.classList.remove('show');
     document.body.style.overflow = 'auto';
 }
 
@@ -931,14 +760,14 @@ function updateModalContent() {
     const description = document.getElementById('modalDescription');
     const link = document.getElementById('modalLink');
     
-    // Atualizar imagens
+    // Atualizar imagens do carrossel
     carousel.innerHTML = data.images.map((img, i) => `
         <div class="carousel-slide ${i === 0 ? 'active' : ''}">
             <img src="${img}" alt="Portfolio image ${i + 1}">
         </div>
     `).join('');
     
-    // Atualizar dots
+    // Atualizar dots se houver mais de uma imagem
     if (data.images.length > 1) {
         dotsContainer.innerHTML = data.images.map((_, i) => `
             <span class="dot ${i === 0 ? 'active' : ''}" onclick="changeSlide(${i})"></span>
@@ -948,11 +777,27 @@ function updateModalContent() {
         dotsContainer.style.display = 'none';
     }
     
-    // Atualizar descrição
+    // Atualizar descrição com justificação
     description.textContent = data.description;
+    description.style.textAlign = 'justify';
+    description.style.hyphens = 'auto';
     
-    // Atualizar link
-    link.href = data.link;
+    // Configurar o link corretamente
+    if (data.link && data.link !== '#') {
+        link.href = data.link;
+        link.style.display = 'inline-flex';
+        link.style.pointerEvents = 'auto';
+        link.style.opacity = '1';
+        link.style.cursor = 'pointer';
+        
+        link.onclick = function(e) {
+            e.stopPropagation();
+            window.open(data.link, '_blank');
+            return false;
+        };
+    } else {
+        link.style.display = 'none';
+    }
 }
 
 function changeSlide(index) {
@@ -979,32 +824,52 @@ function prevSlide() {
     changeSlide(prevIndex);
 }
 
-// Event Listeners
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('portfolioModal');
-    const closeBtn = document.querySelector('.close-modal');
-    const prevBtn = document.querySelector('.carousel-prev');
-    const nextBtn = document.querySelector('.carousel-next');
-    
-    closeBtn.addEventListener('click', closeModal);
-    prevBtn.addEventListener('click', prevSlide);
-    nextBtn.addEventListener('click', nextSlide);
-    
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeModal();
+// ===== ADDITIONAL GLOBAL FUNCTIONS =====
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
         }
-    });
+    };
+}
+
+// ===== ERROR HANDLING =====
+window.addEventListener('error', function(e) {
+    console.error('Website error:', e.error);
     
-    document.addEventListener('keydown', function(e) {
-        if (modal.classList.contains('show')) {
-            if (e.key === 'Escape') {
-                closeModal();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
-            } else if (e.key === 'ArrowRight') {
-                nextSlide();
-            }
+    if (e.error && e.error.message && !e.error.message.includes('ResizeObserver')) {
+        if (typeof showNotification !== 'undefined') {
+            showNotification('An error occurred. Please refresh the page.', 'error');
         }
-    });
+    }
 });
+
+// ===== PERFORMANCE MONITORING =====
+if ('performance' in window) {
+    window.addEventListener('load', function() {
+        const perfData = performance.getEntriesByType('navigation')[0];
+        if (perfData) {
+            const loadTime = Math.round(perfData.loadEventEnd - perfData.startTime);
+            console.log(`Page fully loaded in ${loadTime}ms`);
+        } else {
+            console.log('Page loaded successfully');
+        }
+    });
+}
