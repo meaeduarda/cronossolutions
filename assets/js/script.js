@@ -425,27 +425,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ===== BACK TO TOP BUTTON =====
-    const backToTop = document.createElement('button');
-    backToTop.className = 'back-to-top';
-    backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    backToTop.setAttribute('aria-label', 'Back to top');
-    document.body.appendChild(backToTop);
-    
+    // ===== WHATSAPP FLOAT BUTTON WITH MASCOT INSIDE =====
+    const whatsappFloat = document.createElement('div');
+    whatsappFloat.className = 'whatsapp-float';
+    whatsappFloat.innerHTML = `
+        <div class="whatsapp-bubble">
+            Posso Ajudar?
+            <div class="bubble-arrow"></div>
+        </div>
+        <a href="https://wa.me/5581994527528?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20da%20Cronos%20Solutions." 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="whatsapp-button">
+            <img src="assets/image/croninho.png" alt="Croninho" class="mascot-img">
+        </a>
+    `;
+    document.body.appendChild(whatsappFloat);
+
+    // Mostrar ao scroll (igual ao back-to-top)
     window.addEventListener('scroll', function() {
         if (window.scrollY > 300) {
-            backToTop.classList.add('show');
+            whatsappFloat.classList.add('show');
         } else {
-            backToTop.classList.remove('show');
+            whatsappFloat.classList.remove('show');
         }
     });
-    
-    backToTop.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
+
+    // Mostrar por padrão após 1 segundo
+    setTimeout(() => {
+        whatsappFloat.classList.add('show');
+    }, 1000);
     
     // ===== SCROLL PROGRESS INDICATOR =====
     const scrollProgress = document.createElement('div');
