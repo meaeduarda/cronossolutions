@@ -429,8 +429,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const whatsappFloat = document.createElement('div');
     whatsappFloat.className = 'whatsapp-float';
     whatsappFloat.innerHTML = `
-        <div class="whatsapp-bubble">
-            Posso Ajudar?
+        <div class="whatsapp-bubble" id="whatsappBubble">
+            <button class="bubble-close" id="closeBubble" aria-label="Fechar mensagem">
+                <i class="fas fa-times"></i>
+            </button>
+            Olá! Sou o Croninho.
+             Posso Ajudar?
             <div class="bubble-arrow"></div>
         </div>
         <a href="https://wa.me/5581985904605?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20da%20Cronos%20Solutions." 
@@ -442,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.body.appendChild(whatsappFloat);
 
-    // Mostrar ao scroll (igual ao back-to-top)
+    // Mostrar ao scroll
     window.addEventListener('scroll', function() {
         if (window.scrollY > 300) {
             whatsappFloat.classList.add('show');
@@ -455,7 +459,23 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         whatsappFloat.classList.add('show');
     }, 1000);
-    
+
+    // Fechar balão ao clicar no X
+    const closeBubble = document.getElementById('closeBubble');
+    if (closeBubble) {
+        closeBubble.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const bubble = document.getElementById('whatsappBubble');
+            bubble.style.opacity = '0';
+            bubble.style.transform = 'scale(0.8)';
+            bubble.style.transition = 'all 0.3s ease';
+            
+            setTimeout(() => {
+                bubble.style.display = 'none';
+            }, 300);
+        });
+    }
     // ===== SCROLL PROGRESS INDICATOR =====
     const scrollProgress = document.createElement('div');
     scrollProgress.className = 'scroll-progress';

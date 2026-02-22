@@ -3023,8 +3023,37 @@ h6 {
     animation: bounceIn 0.5s ease forwards;
     transform-origin: bottom right;
     letter-spacing: 0.3px;
+    padding-right: 35px; 
 }
 
+/* Botão X */
+.bubble-close {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    z-index: 10;
+}
+
+.bubble-close:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Seta do balão */
 .bubble-arrow {
     position: absolute;
     bottom: -8px;
@@ -3034,47 +3063,44 @@ h6 {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-top: 10px solid #128C7E;
-    filter: drop-shadow(0 3px 2px rgba(0,0,0,0.05));
 }
 
 /* Container do botão */
 .whatsapp-button {
     display: block;
-    width: 60px;
-    height: 60px;
+    width: 70px; 
+    height: 70px;
     border-radius: 50%;
     position: relative;
-    overflow: visible; 
+    overflow: visible;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     animation: pulse 2s infinite;
-    border: 3px solid #25D366;
     background: white;
+    text-decoration: none;
 }
 
-/* Imagem do mascote */
+
 .whatsapp-button .mascot-img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1.40); 
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
     transition: transform 0.3s ease;
+    display: block;
+    border: 3px solid #128C7E; 
+    box-sizing: border-box; 
 }
 
 /* Efeito hover */
 .whatsapp-button:hover .mascot-img {
-    transform: translate(-50%, -50%) scale(1.4);
+    transform: scale(1.05);
+    border-color: #128C7E; 
 }
 
-/* Efeito hover no botão */
 .whatsapp-button:hover {
     transform: scale(1.05);
     box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
-    border-color: #128C7E;
 }
 
 @keyframes pulse {
@@ -3115,14 +3141,17 @@ h6 {
     }
     
     .whatsapp-button {
-        width: 60px;
-        height: 60px;
-        border-width: 2.5px;
+        width: 65px;
+        height: 65px;
+    }
+    
+    .whatsapp-button .mascot-img {
+        border-width: 2px; 
     }
     
     .whatsapp-bubble {
         font-size: 13px;
-        padding: 8px 16px;
+        padding: 8px 32px 8px 16px;
         margin-bottom: 20px;
     }
     
