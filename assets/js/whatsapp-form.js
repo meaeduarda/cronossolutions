@@ -113,7 +113,7 @@ _Enviado através do formulário de contato do site._
     const encodedText = encodeURIComponent(whatsappText);
     
     // Número no formato internacional
-    const phoneNumber = '5581985904605';
+    const phoneNumber = '5581994527528';
     
     // Criar URL do WhatsApp
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedText}`;
