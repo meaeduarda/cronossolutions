@@ -15,8 +15,8 @@ class PricingCalculator {
             },
             pro: {
                 name: "Cronos Pro",
-                originalPrice: 4932.00,
-                discountPercentage: 10,
+                originalPrice: 5698.80.00,
+                discountPercentage: 20,
                 months: 12,
                 icon: "fa-crown"
             },
