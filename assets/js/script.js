@@ -437,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
              Posso Ajudar?
             <div class="bubble-arrow"></div>
         </div>
-        <a href="https://wa.me/5581994527528?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20da%20Cronos%20Solutions." 
+        <a href="https://wa.me/5581984564184?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20da%20Cronos%20Solutions." 
         target="_blank" 
         rel="noopener noreferrer" 
         class="whatsapp-button">
