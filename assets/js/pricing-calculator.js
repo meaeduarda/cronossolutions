@@ -280,7 +280,7 @@ Aguardo seu retorno!`;
         }
         
         const encodedMessage = encodeURIComponent(message);
-        const whatsappNumber = '5581985904605';
+        const whatsappNumber = '5581984564184';
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
         
         window.open(whatsappUrl, '_blank');
