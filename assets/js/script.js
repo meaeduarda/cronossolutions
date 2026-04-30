@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentSlideIndex = swiper.realIndex;
         
         const backgroundImages = [
-            'linear-gradient(rgba(10, 25, 47, 0.7), rgba(15, 35, 65, 0.75)), url("assets/image/hero1.png")',
-            'linear-gradient(rgba(10, 25, 47, 0.7), rgba(15, 35, 65, 0.75)), url("assets/image/hero2.png")'
+            'linear-gradient(rgba(10, 25, 47, 0.7), rgba(15, 35, 65, 0.75)), url("assets/image/hero1.webp")',
+            'linear-gradient(rgba(10, 25, 47, 0.7), rgba(15, 35, 65, 0.75)), url("assets/image/hero2.webp")',
         ];
         
         heroSection.style.backgroundImage = backgroundImages[currentSlideIndex];
@@ -434,14 +434,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 <i class="fas fa-times"></i>
             </button>
             Olá! Sou o Croninho.
-             Posso Ajudar?
+            Posso ajudar?
             <div class="bubble-arrow"></div>
         </div>
+
         <a href="https://wa.me/5581984564184?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20da%20Cronos%20Solutions." 
         target="_blank" 
         rel="noopener noreferrer" 
         class="whatsapp-button">
-            <img src="assets/image/croninho.png" alt="Croninho" class="mascot-img">
+
+            <img 
+                src="assets/image/croninho.webp"
+                alt="Croninho"
+                class="mascot-img"
+                loading="lazy"
+                width="180"
+                height="180"
+                decoding="async"
+            >
+
         </a>
     `;
     document.body.appendChild(whatsappFloat);

@@ -421,7 +421,7 @@ h6 {
     min-height: 100vh;
     background:
         linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)),
-        url('../assets/image/hero1.png');
+        url('../assets/image/hero1.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
